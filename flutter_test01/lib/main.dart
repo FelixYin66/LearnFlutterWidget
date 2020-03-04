@@ -4,10 +4,12 @@ import 'package:flutter_test01/StatelessWidgetAndStatefulWidget/StatelessWidgetA
 import 'package:flutter_test01/StatelessWidgetAndStatefulWidget/StatefulWidgetTest02.dart';
 import 'package:flutter_test01/StatelessWidgetAndStatefulWidget/StatelessWidgetLifeCycle.dart';
 import 'package:flutter_test01/StatelessWidgetAndStatefulWidget/StatefulWidgetLifeCycle.dart';
+import 'package:flutter_test01/StatelessWidgetAndStatefulWidget/BaseWidgetTest001.dart';
 
 void main(){
 //    runApp(StatefulWidgetTest02App());
 //    runApp(ListViewTestApp());
 //runApp(StatelessWidgetLifeCycleApp());
-runApp(StatefulWidgetLifeCycleApp());
+//runApp(StatefulWidgetLifeCycleApp());
+runApp(BaseWidgetTest001App());
 }
