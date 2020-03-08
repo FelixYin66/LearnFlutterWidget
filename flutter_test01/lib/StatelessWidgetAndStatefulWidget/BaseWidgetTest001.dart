@@ -36,6 +36,7 @@ class BaseWidgetTest001HomeBody extends StatelessWidget {
       ImageWidget(),
       SizedBox(height: 30),
       TextFieldWidget(),
+      FormWidget(),
     ]
     );
   }
@@ -229,10 +230,167 @@ class TextFieldWidget extends StatelessWidget {
           style: TextStyle(fontSize: 30,color: Colors.red),
         ),
         SizedBox(height: 15),
+        TextFieldWidgetContainer()
       ],
     );
   }
 }
+
+
+class TextFieldWidgetContainer extends StatefulWidget {
+  @override
+  _TextFieldWidgetContainerState createState() => _TextFieldWidgetContainerState();
+}
+
+class _TextFieldWidgetContainerState extends State<TextFieldWidgetContainer> {
+  //添加一个Controller管理TextField
+//  final TextEditingController textController = TextEditingController();
+  final TextFieldController textController = TextFieldController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    textController.text = '初始化内容4444';
+    textController.addListener(
+        (){
+          print('textController:$textController.text');
+        }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      textAlign: TextAlign.center,
+      keyboardType: TextInputType.numberWithOptions(signed: true,decimal: false),
+      decoration: InputDecoration(
+          icon: Icon(Icons.phone),
+          labelText: 'LabelText',
+          hintText: 'hintText',
+          border:OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          filled:true,
+          fillColor: Colors.black38
+      ),
+      controller: textController,
+      onChanged: (String text){
+        print('Text onChanged');
+      },
+      onSubmitted: (String text){
+        print('Text onSubmitted');
+      },
+      onEditingComplete: (){
+        print('Text onEditingComplete');
+      },
+    );
+  }
+}
+
+
+class TextFieldController extends TextEditingController{
+//  //添加一个自定义的构造方法，传入自定义初始化字符串；并添加监听方法
+//  TextFieldController.withPlaceHolder(String placeholder){
+//    this.text = placeholder;
+//  }
+//
+//  @override
+//  void addListener(listener) {
+//    // TODO: implement addListener
+//    super.addListener(listener);
+//  }
+
+}
+
+class FormWidget extends StatefulWidget {
+  @override
+  _FormWidgetState createState() => _FormWidgetState();
+}
+
+class _FormWidgetState extends State<FormWidget> {
+  //通过获取当前State
+  final registerFormKey = GlobalKey<FormState>();
+  String name,pwd;
+  @override
+
+
+  void registerForm(){
+    registerFormKey.currentState.save();
+    registerFormKey.currentState.validate();
+    print('name === $name  pwd === $pwd');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(
+          'Form使用',
+          style: TextStyle(fontSize: 20,color: Colors.red),
+        ),
+        SizedBox(height: 20,),
+        Form(
+          key: registerFormKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                onSaved: (String text){
+                  name = text;
+                  print('用户名 $text');
+                },
+                validator: (String validate){
+                  print('Validate === $validate');
+//                  return "用户名错误";
+                  return null;
+                },
+                keyboardType: TextInputType.numberWithOptions(signed: false,decimal: false),
+                decoration: InputDecoration(
+                  icon: Icon(Icons.phone),
+                  hintText: '请输入用户名',
+                  labelText: '用户名',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(2)),
+                ),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                onSaved: (String text){
+                  pwd = text;
+                  print('密码 $text');
+                },
+                validator: (String validate){
+                  print('Validate === $validate');
+//                  return "密码错误";
+                  return null;
+                },
+                obscureText: true,
+                keyboardType: TextInputType.numberWithOptions(signed: false,decimal: false),
+                decoration: InputDecoration(
+                  icon: Icon(Icons.pages),
+                  hintText: '请输入登录密码',
+                  labelText: '登录密码',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(2),),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Container(
+                width: double.infinity,
+                height: 44,
+                child: FlatButton(
+                  child: Text(
+                    '登 录',
+                    style: TextStyle(fontSize: 20,color: Colors.white),
+                  ),
+                  color: Colors.blue,
+                  onPressed: registerForm,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 
 
