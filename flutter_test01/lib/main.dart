@@ -57,5 +57,4 @@ NetworkingManager.request('/post',methond:'post',params: {'seconds':45},inter: I
   print('Post 请求捕获的异常 $e');
 });
 
-
 }
