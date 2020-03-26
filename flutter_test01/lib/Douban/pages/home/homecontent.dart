@@ -10,7 +10,6 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   List<MovieModel> movies = [];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -25,6 +24,7 @@ class _HomeContentState extends State<HomeContent> {
 
   @override
   Widget build(BuildContext context) {
+//    Container
     return ListView.builder(
         itemCount: movies.length,
         itemBuilder: (BuildContext context,int index){
